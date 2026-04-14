@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Verification</title>
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" href="">
+    <style>
+        .quiz-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(0, 10, 20, 0.95);
+            border: 1px solid var(--cyan);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+            text-align: center;
+        }
+        .question-box { margin-bottom: 30px; }
+        .question-text { 
+            font-family: 'Share Tech Mono'; 
+            color: var(--cyan); 
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .option-btn {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            color: #fff;
+            padding: 15px;
+            font-family: 'Share Tech Mono';
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+        }
+        .option-btn:hover {
+            background: rgba(0, 210, 255, 0.2);
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px var(--cyan);
+        }
+        .success-screen { display: none; }
+        .secret-code {
+            font-family: 'Orbitron';
+            font-size: 2rem;
+            color: #00ff88;
+            border: 2px dashed #00ff88;
+            padding: 20px;
+            margin: 20px 0;
+            background: rgba(0, 255, 136, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <audio id="quiz-music" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // On baisse un peu le volume pour que ce soit discret
+    document.getElementById('quiz-music').volume = 0.2;
+</script>
+    <div class="stars"></div>
+    <div class="scanlines"></div>
+
+    <div class="quiz-container">
+        <div id="quiz-ui">
+            <h2 class="glitch" data-text="VERIFICATION_D_IDENTITÉ" style="font-family: 'Orbitron'; margin-bottom: 10px;">VÉRIFICATION D'IDENTITÉ</h2>
+            <p style="font-size: 0.8rem; color: var(--cyan); margin-bottom: 30px; opacity: 0.7;">[ ÉTAPE <span id="current-step">1</span> / 3 ]</p>
+            
+            <div class="question-box">
+                <div class="question-text" id="question">Initialisation du protocole...</div>
+                <div class="options-grid" id="options">
+                    </div>
+            </div>
+        </div>
+
+        <div id="success-ui" class="success-screen">
+            <h2 style="font-family: 'Orbitron'; color: #00ff88;">IDENTITÉ CONFIRMÉE</h2>
+            <p style="margin-top: 10px;">Accès autorisé. Notez votre code de sécurité :</p>
+            <div class="secret-code">Root_BestFriends_18</div>
+            <p style="font-size: 0.8rem; opacity: 0.6;">(Entrez ce code dans le terminal principal)</p>
+            <br>
+            <button class="cyber-btn" onclick="window.location.href='index2.html'">RETOURNER AU TERMINAL</button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION FINALE DU QUIZ JASSER ---
+const questions = [
+    {
+        q: "Où a commencé notre aventure en novembre 2024 ?",
+        options: ["Au centre d'informatique", "Au café du coin", "Sur un serveur Discord", "Au lycée"],
+        correct: 0 // Réponse: Au centre d'informatique
+    },
+    {
+        q: "C'est quoi notre rêve à tous les deux en commun ?",
+        options: ["Faire une photo ensemble", "Faire le tour du monde", "Acheter une voiture"],
+        correct: 1 // Réponse: Faire le tour du monde
+    },
+    {
+        q: "Est-ce que nous avons déjà une photo ensemble ?",
+        options: ["Oui", "Non"],
+        correct: 1 // Réponse: Non
+    },
+    {
+        q: "Quelle est la chose que nous aimons tous les deux ?",
+        options: ["Les animés", "Les voitures", "La lecture"],
+        correct: 0 // Réponse: Les animés
+    }
+];
+
+let step = 0; // On garde le compteur d'étape
+
+        function displayQuestion() {
+            const currentQ = questions[step];
+            document.getElementById('current-step').innerText = step + 1;
+            document.getElementById('question').innerText = ">> " + currentQ.q;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = "";
+            
+            currentQ.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn";
+                btn.innerText = `[${index + 1}] ${opt}`;
+                btn.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(choice) {
+            if(choice === questions[step].correct) {
+                step++;
+                if(step < questions.length) {
+                    displayQuestion();
+                } else {
+                    document.getElementById('quiz-ui').style.display = 'none';
+                    document.getElementById('success-ui').style.display = 'block';
+                }
+            } else {
+                alert("ERREUR : Accès refusé. Jasser ne ferait pas cette erreur !");
+                step = 0; // Recommence à zéro s'il se trompe
+                displayQuestion();
+            }
+        }
+
+        window.onload = displayQuestion;
+    </script>
+</body>
+</html>

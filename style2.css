@@ -1,0 +1,254 @@
+:root {
+    --bg: #00040a;
+    --midnight: #001a2c;
+    --cyan: #00d2ff;
+    --green: #00ff88;
+    --red: #ff4d4d;
+    --white: #e6f1ff;
+    --font-cyber: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-mono);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* EFFETS DE FOND */
+.stars {
+    position: fixed; width: 100%; height: 100%;
+    background-image: radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 20px);
+    background-size: 200px 200px;
+    opacity: 0.1; z-index: -2;
+}
+.scanlines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+    background-size: 100% 4px; z-index: -1; pointer-events: none;
+}
+
+/* CONTENEUR PRINCIPAL */
+.container {
+    background: rgba(0, 26, 44, 0.4);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--cyan);
+    border-radius: 10px;
+    padding: 50px 40px;
+    text-align: center;
+    width: 450px;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.2), inset 0 0 20px rgba(0, 210, 255, 0.1);
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* LOGIN SCREEN */
+.cyber-icon { font-size: 60px; margin-bottom: 20px; animation: pulse 2s infinite; }
+.glitch { font-family: var(--font-cyber); font-size: 2rem; color: #fff; position: relative; letter-spacing: 3px; }
+.glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.glitch::before { left: 2px; text-shadow: -2px 0 var(--red); clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite; }
+.glitch::after { left: -2px; text-shadow: -2px 0 var(--cyan); clip: rect(12px, 450px, 80px, 0); animation: glitch-anim2 1s infinite; }
+
+.subtitle { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 10px; }
+.highlight { color: var(--cyan); font-weight: bold; }
+
+.input-zone { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+input {
+    background: rgba(0,0,0,0.5); border: 1px solid rgba(0, 210, 255, 0.3);
+    padding: 15px; border-radius: 5px; color: var(--cyan); text-align: center;
+    font-family: var(--font-mono); font-size: 1.2rem; outline: none; transition: 0.3s;
+}
+input:focus { border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+
+.cyber-btn {
+    background: transparent; border: 2px solid var(--cyan); color: var(--cyan);
+    padding: 15px; border-radius: 5px; font-family: var(--font-cyber); font-weight: 700;
+    cursor: pointer; transition: 0.4s; letter-spacing: 2px;
+}
+.cyber-btn:hover { background: var(--cyan); color: black; box-shadow: 0 0 20px var(--cyan); }
+
+/* REVEAL SCREEN (Interface Complète) */
+#reveal-screen.hidden { display: none; }
+.cyber-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--cyan); padding-bottom: 15px; margin-bottom: 20px; }
+.logo { font-family: var(--font-cyber); color: #fff; font-size: 1.2rem; }
+.version { font-size: 0.6rem; color: var(--cyan); }
+.clocks { display: flex; gap: 20px; font-size: 0.8rem; color: var(--cyan); }
+.clock-box { text-align: right; border-right: 2px solid var(--cyan); padding-right: 10px; }
+.label { display: block; font-size: 0.6rem; opacity: 0.7; }
+
+.birthday-title { font-family: var(--font-cyber); font-size: 2.5rem; color: var(--green); text-shadow: 0 0 15px var(--green); margin: 20px 0; }
+
+.core-interface { display: flex; gap: 20px; }
+.side-panel, .terminal-panel { background: rgba(0,0,0,0.4); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 5px; }
+.panel-header { background: rgba(0, 210, 255, 0.1); color: var(--cyan); font-family: var(--font-cyber); padding: 5px 10px; font-size: 0.7rem; border-bottom: 1px solid rgba(0, 210, 255, 0.3); text-align: left; }
+.panel-content { padding: 15px; text-align: left; font-size: 0.8rem; line-height: 1.5; color: rgba(255,255,255,0.7); }
+
+.geoloc-panel { width: 250px; }
+.map-visual { height: 80px; background: rgba(255,255,255,0.05); margin: 10px 0; border-radius: 3px; position: relative; overflow: hidden;}
+.line-tun-mtl { position: absolute; top: 50%; left: 10%; width: 80%; height: 2px; background: var(--cyan); animation: line-flow 3s infinite; }
+.distance { font-size: 0.9rem; font-weight: bold; text-align: center;}
+
+.terminal-panel { flex-grow: 1; border-color: var(--green); }
+.terminal-panel .panel-header { background: rgba(0, 255, 136, 0.1); color: var(--green); border-color: rgba(0, 255, 136, 0.3); }
+#typing-text { color: var(--green); font-size: 1rem; text-shadow: 0 0 5px rgba(0, 255, 136, 0.5); }
+
+.status-panel { width: 200px; }
+.status-ok { color: var(--green); font-weight: bold; }
+.status-max { color: var(--cyan); animation: blink 1s infinite; }
+
+/* ANIMATIONS */
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+@keyframes blink { 50% { opacity: 0.2; } }
+@keyframes glitch-anim { 0% { clip: rect(10px, 999px, 9px, 0); } 100% { clip: rect(70px, 999px, 98px, 0); } }
+@keyframes glitch-anim2 { 0% { clip: rect(30px, 999px, 80px, 0); } 100% { clip: rect(0px, 999px, 20px, 0); } }
+@keyframes line-flow { 0% { left: 10%; width: 0%; opacity: 0; } 50% { left: 10%; width: 80%; opacity: 1; } 100% { left: 90%; width: 0%; opacity: 0; } }
+
+.hidden { display: none; }
+.error { color: var(--red); font-size: 0.8rem; margin-top: 15px; min-height: 20px; }
+/* Style de base pour les photos holographiques */
+/* Style Hologramme RÉUSSI */
+/* --- SECTION HOLOGRAPHIQUE STYLEÉ (Remplace tout l'ancien ici) --- */
+
+/* Le conteneur qui gère la position et l'animation globale */
+.hologram-container {
+    position: fixed;
+    width: 250px; 
+    height: auto;
+    z-index: 9999;
+    opacity: 0;
+    transform: scale(0.5) translateY(50px);
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+/* L'image avec la forme découpée et le filtre bleu */
+.hologram-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Coupe les coins pour un style futuriste */
+    clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    /* Transforme la photo en bleu néon */
+    filter: sepia(100%) hue-rotate(140deg) saturate(300%) brightness(1.1);
+    border: 1px solid rgba(0, 210, 255, 0.6);
+    background: rgba(0, 210, 255, 0.1);
+}
+
+/* La lueur néon derrière l'image */
+.hologram-container::before {
+    content: '';
+    position: absolute;
+    top: -5px; left: -5px; right: -5px; bottom: -5px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+    clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    box-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* Le petit texte "Data" sous la photo */
+.hologram-data {
+    position: absolute;
+    bottom: -18px;
+    left: 15px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--cyan);
+    text-shadow: 0 0 5px var(--cyan);
+    letter-spacing: 1px;
+}
+
+/* --- ÉTATS D'ANIMATION --- */
+
+.hologram-container.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.hologram-container.exit {
+    opacity: 0;
+    transform: scale(1.1) blur(15px);
+    transition: all 0.5s ease-out;
+}
+/* --- EFFET DE SURVOL ACTIF --- */
+/* --- LE SYSTÈME HOLOGRAPHIQUE INTERACTIF --- */
+.hologram-container {
+    position: fixed;
+    width: 180px; /* Taille optimisée pour le cercle */
+    height: auto;
+    z-index: 9999;
+    opacity: 0;
+    transform: scale(0.5) translateY(50px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    
+    /* CRITIQUE : Permet de détecter la souris */
+    pointer-events: auto !important; 
+    cursor: pointer;
+}
+
+.hologram-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+    filter: sepia(100%) hue-rotate(140deg) saturate(300%) brightness(1.1);
+    border: 1px solid rgba(0, 210, 255, 0.6);
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+}
+
+/* --- EFFET AU SURVOL (HOVER) --- */
+.hologram-container:hover {
+    transform: scale(1.4) !important; /* S'agrandit nettement */
+    z-index: 10001 !important; /* Passe au-dessus des autres */
+    filter: brightness(1.2);
+}
+
+.hologram-container:hover .hologram-photo {
+    filter: none; /* Affiche les VRAIES COULEURS de la photo */
+    clip-path: none; /* Devient rectangulaire pour mieux voir vos visages */
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 30px var(--cyan);
+}
+
+/* --- ANIMATION DE SCINTILLEMENT (GLITCH) --- */
+@keyframes holo-flicker {
+    0%, 100% { opacity: 0.9; }
+    5%, 15% { opacity: 1; filter: brightness(1.4); }
+    10% { opacity: 0.8; filter: brightness(1); }
+}
+
+.hologram-container.active {
+    opacity: 1;
+    animation: holo-flicker 4s infinite;
+}
+
+.hologram-container.exit {
+    opacity: 0;
+    transform: scale(1.2) blur(15px) !important;
+}
+/* --- ANIMATION DE GLITCH --- */
+@keyframes holo-glitch {
+    0% { transform: translate(0,0) skewX(0deg); opacity: 0.9; }
+    2% { transform: translate(3px,0) skewX(5deg); opacity: 1; }
+    4% { transform: translate(-3px,0) skewX(-5deg); opacity: 0.8; }
+    6% { transform: translate(0,0) skewX(0deg); opacity: 0.9; }
+    /* ... longues périodes calmes ... */
+    50% { transform: translate(0,0) skewX(0deg); opacity: 0.9; }
+    52% { transform: translate(1px, 2px); filter: hue-rotate(90deg); }
+    54% { transform: translate(0,0); filter: sepia(100%) hue-rotate(140deg); }
+    100% { transform: translate(0,0) skewX(0deg); opacity: 0.9; }
+}
+
+/* Et on l'applique dans .hologram-container.active */
+.hologram-container.active {
+    /* ... ton code existant ... */
+    animation: holo-glitch 5s infinite; /* Glitch toutes les 5 secondes */
+    animation-delay: 2s; /* Pour ne pas commencer tout de suite */
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol B-DAY Jasser </title>
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" href="jj.jpg">
+</head>
+<body>
+    <audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+</audio>
+    <div class="stars"></div>
+    <div class="scanlines"></div>
+    
+    <div class="container" id="main-frame">
+        <div id="lock-screen">
+            <div class="cyber-icon">🔐</div>
+            <h1 class="glitch" data-text="SYSTEM LOCK">SYSTEM LOCK</h1>
+            <p class="subtitle">PROTOCOL: <span class="highlight">BIRTHDAY_CELEBRATION_JASSER</span></p>
+            
+            <div class="input-zone">
+    <input type="password" id="password" placeholder="ENTER ACCESS CODE" autocomplete="off">
+    
+    <button class="cyber-btn" onclick="authenticate()">
+        <span class="btn-text">VALIDER L'IDENTITÉ</span>
+        <span class="btn-glitch"></span>
+    </button>
+    
+    <p style="margin-top: 25px; font-size: 0.8rem; font-family: 'Share Tech Mono';">
+        <span style="color: rgba(255,255,255,0.5);">IDENTITÉ NON VÉRIFIÉE ?</span><br>
+        <a href="quiz.html" style="color: var(--cyan); text-decoration: none; border-bottom: 1px dashed var(--cyan); cursor: pointer; text-transform: uppercase;">
+            > PASSER LE TEST DE SÉCURITÉ
+        </a>
+    </p>
+</div>
+            <p id="error-msg" class="error"></p>
+        </div>
+
+        <div id="reveal-screen" class="hidden">
+            <div class="cyber-header">
+                <div class="logo">B-DAY_PROTOCOL <span class="version" onclick="authenticateEasterEgg()" style="cursor:help; color:var(--cyan);">v4.0</span></div>
+                <div class="clocks">
+                    <div class="clock-box"><span class="label">TUN</span> <span id="tunis-time"></span></div>
+                    <div class="clock-box"><span class="label">MTL</span> <span id="montreal-time"></span></div>
+                </div>
+            </div>
+            
+            <h2 class="birthday-title">HAPPY B-DAY, joujou !</h2>
+            
+            <div class="core-interface">
+                <div class="side-panel geoloc-panel">
+                    <div class="panel-header">LIEN SATELLITE</div>
+                    <div class="panel-content">
+                        <p>📍 ORIGINE: <span style="color:#fff;">Tunis (36.8°N, 10.2°E)</span></p>
+                        <p>📡 DEST.: <span style="color:#fff;">Montréal (45.5°N, 73.6°W)</span></p>
+                        <div class="map-visual">
+                            <div class="line-tun-mtl"></div>
+                        </div>
+                        <p class="distance">DISTANCE: <span class="highlight">~7,500 KM</span></p>
+                    </div>
+                </div>
+                
+                <div class="terminal-panel">
+                    <div class="panel-header">MESSAGE DÉCRYPTÉ</div>
+                    <div class="panel-content">
+                        <p id="typing-text"></p>
+                    </div>
+                </div>
+                
+                <div class="side-panel status-panel">
+                    <div class="panel-header">SYSTEM STATUS</div>
+                    <div class="panel-content">
+                        <p>Connexion: <span class="status-ok">SECURE</span></p>
+                        <p>Niveau d'amitié: <span class="status-max">MAX_ROOT</span></p>
+                        <p>Âge détecté: <span class="highlight">18</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="ja2.js"></script>
+</body>
+</html>
